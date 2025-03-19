@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script>
+            function format_time(seconds) {
+                if (seconds >= 3600) {
+                    const hours = Math.floor(seconds / 3600);
+                    const mins = Math.floor((seconds % 3600) / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${hours}h ${mins}m ${secs}s`;
+                } else if (seconds >= 60) {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins}m ${secs}s`;
+                } else {
+                    return `${seconds.toFixed(2)} seconds`;
+                }
+            }
+
+            function update_data() {
+                document.getElementById("loader").style.display = "block";
+                fetch("/data")
+                    .then(response => response.json())
+                    .then(data => {
+                        const tableBody = document.getElementById("app-table-body");
+                        tableBody.innerHTML = "";
+
+                        for (const [app, time_spent] of Object.entries(data)) {
+                            const row = `<tr><td>${app}</td><td>${format_time(time_spent)}</td></tr>`;
+                            tableBody.innerHTML += row;
+                        }
+
+                        document.getElementById("loader").style.display = "none";
+                    });
+            }
+
+            window.onload = update_data;
+        </script>
+    </head>
+    <body>
+        <h1>📊 Digital Wellbeing - Linux</h1>
+
+        <div class="container">
+            <button class="refresh-btn" onclick="update_data()">🔄 Refresh Data</button>
+
+            <div id="loader" class="loader" style="display: none;"></div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Application</th>
+                        <th>Time Spent</th>
+                    </tr>
+                </thead>
+                <tbody id="app-table-body">
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            &copy; 2025 Digital Wellbeing for Linux
+        </footer>
+    </body>
+</html>
