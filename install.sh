@@ -24,4 +24,4 @@ sudo systemctl start digilinux
 # Check digilinux service
 sudo systemctl status digilinux
 
-echo "Digital Wellbeing for Linux is installed and running. Visit http://127.0.0.1:5000 to check your time spent."
+echo "Digital Wellbeing for Linux is installed and running."
