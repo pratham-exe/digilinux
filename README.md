@@ -14,23 +14,20 @@ A web based application that tracks and monitors the time spent on different app
 - Virtual Environment
 - Flask
 - Creating a Systemd Sleep Hook
-    1. Create a digilinux.sh file.
+    1. Create a `digilinux.sh` file.
         ```
         sudo nano /lib/systemd/system-sleep/digilinux.sh
         ```
-
     2. Add the following content.
+        ```
+        #!/bin/bash
 
-```
-#!/bin/bash
-
-if [ "$1" = "pre" ]; then
-    nohup curl -m 5 -X GET http://127.0.0.1:5000/sleep >/dev/null 2>&1 &
-elif [ "$1" = "post" ]; then
-    nohup curl -m 5 -X GET http://127.0.0.1:5000/resume >/dev/null 2>&1 &
-fi
-```
-
+        if [ "$1" = "pre" ]; then
+            nohup curl -m 5 -X GET http://127.0.0.1:5000/sleep >/dev/null 2>&1 &
+        elif [ "$1" = "post" ]; then
+            nohup curl -m 5 -X GET http://127.0.0.1:5000/resume >/dev/null 2>&1 &
+        fi
+        ```
     3. Make the script executable.
         ```
         sudo chmod +x /lib/systemd/system-sleep/digilinux.sh
