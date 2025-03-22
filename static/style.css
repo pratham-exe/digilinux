@@ -90,7 +90,9 @@ th, td {
 th {
     background: rgba(255, 255, 255, 0.2);
     font-weight: bold;
-    color: #e0f7fa;
+    color: #ffcc00;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 tr:nth-child(even) {
@@ -122,4 +124,29 @@ footer {
     th, td {
         padding: 8px 10px;
     }
+}
+
+th {
+    background: linear-gradient(90deg, #ffcc00, #ff9900);
+    color: #1e1e2e;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+th:first-child {
+    text-align: left;
+    padding-left: 16px;
+}
+
+th:last-child {
+    text-align: left;
+    padding-right: 16px;
+}
+
+thead {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
