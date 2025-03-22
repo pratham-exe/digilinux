@@ -62,3 +62,10 @@ def update_digital_wellbeing_hash_map(digital_wellbeing: dict, current_digital_w
         digital_wellbeing[each_app][0] = time.time()
 
     return digital_wellbeing
+
+
+def resume_time_for_all_applications(digital_wellbeing: dict) -> dict:
+    for each_application in digital_wellbeing.keys():
+        digital_wellbeing[each_application][0] = time.time()
+
+    return digital_wellbeing
