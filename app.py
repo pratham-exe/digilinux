@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from main import get_current_running_processes, get_all_applications, get_current_processes_applications, update_digital_wellbeing_hash_map, resume_time_for_all_applications
+from main import get_current_hypr_clients, update_digital_wellbeing_hash_map, resume_time_for_all_applications
 import time
 import threading
 from threading import Lock
@@ -17,10 +17,7 @@ def update_digital_wellbeing_data():
 
     while True:
         if not sleep_mode:
-            running_process_list = get_current_running_processes()
-            present_applications_list = get_all_applications()
-
-            current_digital_wellbeing_list = get_current_processes_applications(running_process_list, present_applications_list)
+            current_digital_wellbeing_list = get_current_hypr_clients()
             with lock:
                 digital_wellbeing_hash_map = update_digital_wellbeing_hash_map(digital_wellbeing_hash_map, current_digital_wellbeing_list)
 

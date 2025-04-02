@@ -1,51 +1,21 @@
 import subprocess
-import os
 import time
 
 
-def get_current_running_processes() -> dict:
-    output = subprocess.run(["ps", "-eo", "comm,args"], capture_output=True, text=True)
+def get_current_hypr_clients() -> set:
+    hyprctl_clients = set()
 
-    process_hash_map = {}
+    output = subprocess.run(["hyprctl", "clients"], capture_output=True, text=True)
+    initial_title = None
 
-    for each_output in output.stdout.split("\n"):
-        arguments = each_output.split(maxsplit=1)
-        if len(arguments) == 2:
-            process_hash_map[arguments[0]] = arguments[1]
+    for each_line in output.stdout.split("\n"):
+        each_line = each_line.strip()
+        if each_line.startswith("initialTitle:"):
+            initial_title = each_line.split(":", 1)[1].strip()
+            if initial_title:
+                hyprctl_clients.add(initial_title)
 
-    return process_hash_map
-
-
-def get_all_applications() -> dict:
-    output = subprocess.run(["ls", "/usr/share/applications/"], capture_output=True, text=True)
-
-    applications_dir_path = "/usr/share/applications/"
-    applications_hash_map = {}
-
-    for file in output.stdout.strip().split("\n"):
-        file_full_path = os.path.join(applications_dir_path, file)
-        with open(file_full_path, "r") as f:
-            for each_line in f:
-                if each_line.startswith("Exec="):
-                    execution_path = each_line.split("=", 1)[1].strip().split()[0]
-                    applications_hash_map[file[:-8]] = execution_path
-
-    return applications_hash_map
-
-
-def get_current_processes_applications(process_list: dict, applications_list: dict) -> set:
-    process_application_list = set()
-
-    for name, args in process_list.items():
-        if name in applications_list.keys():
-            process_application_list.add(name)
-        else:
-            for app_name, exec_path in applications_list.items():
-                if exec_path in args:
-                    process_application_list.add(app_name)
-                    break
-
-    return process_application_list
+    return hyprctl_clients
 
 
 def update_digital_wellbeing_hash_map(digital_wellbeing: dict, current_digital_wellbeing: set) -> dict:

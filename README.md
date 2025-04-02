@@ -1,4 +1,4 @@
-# digilinux - Digital Wellbeing for Linux
+# digilinux - Digital Wellbeing for Hyprland Users
 
 A web based application that tracks and monitors the time spent on different applications running on a Linux system. This project is configured to run as a **systemd service**, making it seamless to manage and control.
 
@@ -23,9 +23,9 @@ A web based application that tracks and monitors the time spent on different app
         #!/bin/bash
 
         if [ "$1" = "pre" ]; then
-            nohup curl -m 5 -X GET http://127.0.0.1:5000/sleep >/dev/null 2>&1 &
+            nohup curl -m 5 -X POST http://127.0.0.1:5000/sleep >/dev/null 2>&1 &
         elif [ "$1" = "post" ]; then
-            nohup curl -m 5 -X GET http://127.0.0.1:5000/resume >/dev/null 2>&1 &
+            nohup curl -m 5 -X POST http://127.0.0.1:5000/resume >/dev/null 2>&1 &
         fi
         ```
     3. Make the script executable.

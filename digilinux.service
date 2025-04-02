@@ -3,10 +3,9 @@ Description=Digital Wellbeing for Linux Flask Application
 After=network.target
 
 [Service]
-User={{USERNAME}}
-WorkingDirectory=/opt/digilinux
-ExecStart=/opt/digilinux/digital/bin/python3 /opt/digilinux/app.py
+WorkingDirectory=%h/digilinux
+ExecStart=%h/digilinux/digital/bin/python3 %h/digilinux/app.py
 Restart=always
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
