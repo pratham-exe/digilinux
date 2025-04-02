@@ -10,7 +10,7 @@ def get_current_hypr_clients() -> set:
 
     for each_line in output.stdout.split("\n"):
         each_line = each_line.strip()
-        if each_line.startswith("initialTitle:"):
+        if each_line.startswith("initialClass:"):
             initial_title = each_line.split(":", 1)[1].strip()
             if initial_title:
                 hyprctl_clients.add(initial_title)

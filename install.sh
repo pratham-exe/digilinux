@@ -25,4 +25,4 @@ systemctl --user start digilinux
 # Check digilinux service
 systemctl --user status digilinux
 
-echo "Digital Wellbeing for Linux is installed and running."
+echo "Digital Wellbeing for Hyprland is installed and running."

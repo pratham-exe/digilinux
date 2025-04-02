@@ -1,5 +1,5 @@
 [Unit]
-Description=Digital Wellbeing for Linux Flask Application
+Description=Digital Wellbeing for Hyprland
 After=network.target
 
 [Service]
