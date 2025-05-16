@@ -1,0 +1,6 @@
+[Unit]
+Description=Restart Digilinux Service after midnight
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user restart digilinux.service

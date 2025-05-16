@@ -6,6 +6,7 @@ def get_current_hypr_clients() -> set:
     hyprctl_clients = set()
 
     output = subprocess.run(["hyprctl", "clients"], capture_output=True, text=True)
+    print("HYPR")
     initial_title = None
 
     for each_line in output.stdout.split("\n"):
@@ -18,7 +19,9 @@ def get_current_hypr_clients() -> set:
     return hyprctl_clients
 
 
-def update_digital_wellbeing_hash_map(digital_wellbeing: dict, current_digital_wellbeing: set) -> dict:
+def update_digital_wellbeing_hash_map(
+    digital_wellbeing: dict, current_digital_wellbeing: set
+) -> dict:
     for each_application in current_digital_wellbeing:
         if each_application not in digital_wellbeing:
             digital_wellbeing[each_application] = [time.time(), 0, True]
@@ -27,7 +30,9 @@ def update_digital_wellbeing_hash_map(digital_wellbeing: dict, current_digital_w
         if each_app in current_digital_wellbeing:
             if not digital_wellbeing[each_app][2]:
                 end_time = time.time()
-                digital_wellbeing[each_app][1] += end_time - digital_wellbeing[each_app][0]
+                digital_wellbeing[each_app][1] += (
+                    end_time - digital_wellbeing[each_app][0]
+                )
             digital_wellbeing[each_app][2] = False
         digital_wellbeing[each_app][0] = time.time()
 

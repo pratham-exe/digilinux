@@ -1,11 +1,12 @@
 [Unit]
 Description=Digital Wellbeing for Hyprland
-After=network.target
+After=default.target
 
 [Service]
 WorkingDirectory=%h/digilinux
+ExecStartPre=/bin/sleep 20
 ExecStart=%h/digilinux/digital/bin/python3 %h/digilinux/app.py
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=default.target
